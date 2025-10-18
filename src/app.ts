@@ -2,13 +2,11 @@ import type { nftType } from "./domain/types/types";
 import  { nftsList } from "./data/nft.js";
 import  { clearCards, cloneCard } from "././ui/gestionCard.js";
 
-
-
 function populateCard(currentCard: Element, data: nftType) {
   const img = currentCard.querySelector(".main-image") as HTMLImageElement;
   img.src = data.img;
 
-  const title = currentCard.querySelector(".title") as HTMLHeadElement;
+  const title = currentCard.querySelector(".title") as HTMLHeadingElement;
   title.textContent = data.title;
 
   const description = currentCard.querySelector(
@@ -36,7 +34,6 @@ function createCard(data: nftType) {
 
 function handleChange(event: Event) {
   const value = (event.target as HTMLInputElement).value;
-
   const filteredList = nftsList.filter((nft) => {
     return (
       nft.title.toLowerCase()?.includes(value.toLowerCase()) ||
@@ -49,14 +46,16 @@ function handleChange(event: Event) {
 
 export default function init(list = nftsList) {
   console.log(list);
-
   const input = document.querySelector(".input-search") as HTMLInputElement;
-  input.addEventListener("input", handleChange);
-
+    if (input) {
+    input.removeEventListener("input", handleChange);
+    input.addEventListener("input", handleChange);
+  }
   clearCards();
-  list.map((nftData) => {
-    createCard(nftData);
-  });
+  list.forEach(createCard);
 }
-/////Appele des function
-init();
+export {
+  populateCard,
+  createCard
+}
+
