@@ -7,4 +7,4 @@ type nftType = {
   expire: string;
   avatar: string;
 };
-export { nftType };
+export type { nftType };
