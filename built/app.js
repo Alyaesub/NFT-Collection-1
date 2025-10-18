@@ -32,12 +32,12 @@ function handleChange(event) {
 export default function init(list = nftsList) {
     console.log(list);
     const input = document.querySelector(".input-search");
-    input.addEventListener("input", handleChange);
+    if (input) {
+        input.removeEventListener("input", handleChange);
+        input.addEventListener("input", handleChange);
+    }
     clearCards();
-    list.map((nftData) => {
-        createCard(nftData);
-    });
+    list.forEach(createCard);
 }
-/////Appele des function
-init();
+export { populateCard, createCard };
 //# sourceMappingURL=app.js.map
