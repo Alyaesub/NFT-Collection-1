@@ -1,2 +1,2 @@
-export { nftType };
+export {};
 //# sourceMappingURL=types.js.map
