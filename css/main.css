@@ -31,11 +31,6 @@ body {
   margin-top: 1.5rem;
 }
 
-/* h1 {
-  text-align: center;
-  margin-bottom: 1rem;
-} */
-
 /* Card */
 .input-search {
   background-color: var(--bg-card);
@@ -212,10 +207,7 @@ body {
   }
 }
 
-
-
 /* ====== PAGE DETAILS ====== */
-/* === PAGE DETAILS (ta structure inchangée) === */
 
 .detail-container {
   max-width: 1100px;
@@ -299,14 +291,14 @@ body {
 .nft-detail__desc {
   opacity: 0.9;
   line-height: 1.6;
-  margin-bottom: 24px;
+  margin-bottom: 10px;
   color: #cdd6f4;
 }
 
 .nft-detail__meta {
   display: grid;
-  gap: 10px;
-  margin: 16px 0 24px;
+  gap: 8px;
+  margin: 10px 0 14px;
   padding: 12px 14px;
   border: 1px dashed rgba(255, 255, 255, 0.1);
   border-radius: 12px;
@@ -344,25 +336,37 @@ body {
 }
 
 /* ===== Titlebar + compteur ===== */
-.titlebar{
-  display:flex; align-items:center; justify-content:space-between;
-  gap:12px; margin:10px 0 14px;
+
+.titlebar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px 0 14px;
 }
-.titlebar__left{ 
-  display:flex; 
-  align-items:center;
-  gap:10px; 
+.titlebar h1 {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 22px;
+  margin: 0;
 }
-.titlebar h1{ 
-  margin:0; 
-  text-align: center;
-  font-size:22px; 
-  line-height:1.2; 
+.logo{ 
+  width:22px; 
+  height:22px;
+  margin-left: 22px;
+  opacity:.9 
 }
-.logo{ width:22px; height:22px; opacity:.9 }
+
 .count{
-  display:inline-flex; align-items:center; gap:6px;
-  padding:6px 10px; border:1px solid rgba(255,255,255,.12);
-  border-radius:999px; color:#e6e9ef; background:#0f1115;
+  display:inline-flex; 
+  align-items:center;
+  margin-right: 22px;
+  gap:6px;
+  padding:6px 10px; 
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:999px; 
+  color:#e6e9ef; 
+  background:#0f1115;
   font-size:14px;
 }

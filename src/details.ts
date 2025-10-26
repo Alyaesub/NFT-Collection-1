@@ -15,40 +15,35 @@ function render(nft: nftType) {
   const info = document.querySelector(".detail-container .info") as HTMLElement | null;
   if (!media || !info) return;
 
-  media.innerHTML = `
-    <img src="${nft.img}" alt="${nft.title}" class="nft-detail__image" />
-  `;
-
-  info.innerHTML = `
-    <h1 class="nft-detail__title">${nft.title}</h1>
-    <p class="nft-detail__desc">${nft.description}</p>
-
-    <div class="nft-detail__meta">
-      <div><strong>Créateur :</strong> ${nft.creator}</div>
-      <div><strong>Prix :</strong> ${nft.price}</div>
-      <div><strong>Expire :</strong> ${nft.expire}</div>
-      <div><strong>ID :</strong> #${nft.id}</div>
-    </div>
-
-    <div class="nft-detail__actions">
-      <a class="btn" href="/">← Retour</a>
-      <a class="btn primary" aria-disabled="true" tabindex="-1" style="opacity:.6;pointer-events:none;">
-        Voir sur OpenSea
-      </a>
-    </div>
-  `;
+//injection des donné dans le html
+  (document.getElementById("nft-img") as HTMLImageElement).src = nft.img;
+  document.getElementById("nft-title")!.textContent = nft.title;
+  document.getElementById("nft-description")!.textContent = nft.description;
+  document.getElementById("nft-creator")!.textContent = nft.creator;
+  document.getElementById("nft-price")!.textContent = nft.price;
+  document.getElementById("nft-expire")!.textContent = nft.expire;
+  document.getElementById("nft-id")!.textContent = String(nft.id);
 }
 
 function notFound() {
   const container = document.querySelector(".detail-container") as HTMLElement | null;
   if (!container) return;
-  container.innerHTML = `
-    <div class="empty">
-      <p>❌ NFT introuvable.</p>
-      <a class="btn" href="/">Retour à la collection</a>
-    </div>
-  `;
+  // On vide le contenu précédent de manière safe
+  container.replaceChildren();
+  // Création du bloc "empty"
+  const empty = document.createElement("div");
+  empty.className = "empty";
+  const p = document.createElement("p");
+  p.textContent = "❌ NFT introuvable.";
+  const link = document.createElement("a");
+  link.className = "btn";
+  link.href = "/";
+  link.textContent = "Retour à la collection";
+  // On assemble les éléments
+  empty.append(p, link);
+  container.append(empty);
 }
+
 
 function initDetails() {
   const id = getIdFromQuery();
