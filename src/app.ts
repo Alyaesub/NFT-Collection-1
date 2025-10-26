@@ -2,6 +2,7 @@ import type { nftType } from "./domain/types/types";
 import  { nftsList } from "./data/nft";
 import  { clearCards, cloneCard } from "././ui/gestionCard";
 
+//layout de la generation de card
 function populateCard(currentCard: Element, data: nftType) {
   const img = currentCard.querySelector(".main-image") as HTMLImageElement;
   img.src = data.img;
@@ -26,11 +27,12 @@ function populateCard(currentCard: Element, data: nftType) {
   const avatar = currentCard.querySelector(".avatar") as HTMLImageElement;
   avatar.src = data.avatar;
 
-  // ✅ accessibilité + clic
+  // accessibilité + clic
   (currentCard as HTMLElement).tabIndex = 0;
   (currentCard as HTMLElement).setAttribute("role", "button");
   currentCard.setAttribute("data-id", String(data.id));
 
+  //gere la route vers la page detailsNFT
   const goDetails = () => {
     window.location.href = `details.html?id=${data.id}`;
   };
@@ -43,23 +45,29 @@ function populateCard(currentCard: Element, data: nftType) {
   });
 }
 
+//function quiigére la création de card en fonction du nombre de nft
 function createCard(data: nftType) {
   const card = cloneCard();
   populateCard(card as Element, data);
 }
 
+//function de la saerchbar
 function renderEmpty() {
   const root = document.querySelector(".card-container");
   if (!root) return;
-  root.innerHTML = `
-    <div class="empty">
-      <span class="empty__emoji">🫥</span>
-      <p>Aucun NFT ne correspond à ta recherche.</p>
-      <a href="/" class="btn small">Réinitialiser</a>
-    </div>
-  `;
+  root.replaceChildren();
+  const empty = document.createElement("div");
+  empty.className = "empty";
+  const p = document.createElement("p");
+  p.textContent = "🫥 Aucun NFT ne correspond à ta recherche 🫥";
+  const link = document.createElement("a");
+  link.className = "btn small";
+  link.href = "/";
+  link.textContent = "Réinitialiser";
+  // On assemble les éléments
+  empty.append(p, link);
+  root.append(empty);
 }
-
 function handleChange(event: Event) {
   const value = (event.target as HTMLInputElement).value;
   const filteredList = nftsList.filter((nft) => {
@@ -72,11 +80,17 @@ function handleChange(event: Event) {
   if (filteredList.length === 0) {
     clearCards();
     renderEmpty();
+    updateCount(0); 
     return;
   }
   init(filteredList);
 }
-
+//function qui gére le compteur des nft
+function updateCount(n: number) {
+  const el = document.getElementById("nft-count");
+  if (el) el.textContent = String(n);
+}
+//function d'initialisation
 export default function init(list = nftsList) {
   console.log(list);
   const input = document.querySelector(".input-search") as HTMLInputElement;
@@ -86,6 +100,8 @@ export default function init(list = nftsList) {
   }
   clearCards();
   list.forEach(createCard);
+  //compteur sur la collection affichée
+  updateCount(list.length);
 }
 
 function setYear() {
@@ -93,6 +109,8 @@ function setYear() {
   if (el) el.textContent = String(new Date().getFullYear());
 }
 setYear();
+
+
 export {
   populateCard,
   createCard,
