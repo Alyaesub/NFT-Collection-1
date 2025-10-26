@@ -1,6 +1,6 @@
 import type { nftType } from "./domain/types/types";
-import  { nftsList } from "./data/nft.js";
-import  { clearCards, cloneCard } from "././ui/gestionCard.js";
+import  { nftsList } from "./data/nft";
+import  { clearCards, cloneCard } from "././ui/gestionCard";
 
 function populateCard(currentCard: Element, data: nftType) {
   const img = currentCard.querySelector(".main-image") as HTMLImageElement;
@@ -25,11 +25,39 @@ function populateCard(currentCard: Element, data: nftType) {
 
   const avatar = currentCard.querySelector(".avatar") as HTMLImageElement;
   avatar.src = data.avatar;
+
+  // ✅ accessibilité + clic
+  (currentCard as HTMLElement).tabIndex = 0;
+  (currentCard as HTMLElement).setAttribute("role", "button");
+  currentCard.setAttribute("data-id", String(data.id));
+
+  const goDetails = () => {
+    window.location.href = `details.html?id=${data.id}`;
+  };
+  (currentCard as HTMLElement).addEventListener("click", goDetails);
+  (currentCard as HTMLElement).addEventListener("keydown", (e: KeyboardEvent) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      goDetails();
+    }
+  });
 }
 
 function createCard(data: nftType) {
   const card = cloneCard();
   populateCard(card as Element, data);
+}
+
+function renderEmpty() {
+  const root = document.querySelector(".card-container");
+  if (!root) return;
+  root.innerHTML = `
+    <div class="empty">
+      <span class="empty__emoji">🫥</span>
+      <p>Aucun NFT ne correspond à ta recherche.</p>
+      <a href="/" class="btn small">Réinitialiser</a>
+    </div>
+  `;
 }
 
 function handleChange(event: Event) {
@@ -41,6 +69,11 @@ function handleChange(event: Event) {
       nft.creator.toLowerCase().includes(value.toLowerCase())
     );
   });
+  if (filteredList.length === 0) {
+    clearCards();
+    renderEmpty();
+    return;
+  }
   init(filteredList);
 }
 
@@ -54,8 +87,15 @@ export default function init(list = nftsList) {
   clearCards();
   list.forEach(createCard);
 }
+
+function setYear() {
+  const el = document.getElementById("year");
+  if (el) el.textContent = String(new Date().getFullYear());
+}
+setYear();
 export {
   populateCard,
-  createCard
+  createCard,
+  setYear
 }
 
