@@ -2,6 +2,7 @@ import type { nftType } from "../domain/types/types";
 
 const nftsList: nftType[] = [
   {
+    id: 1,
     title: "Donkey #3429",
     description:
       "Collection of 10,000 Primates facilitating a seamless adoption of the web3 space through community fueled ventures and collaborations.",
@@ -12,6 +13,7 @@ const nftsList: nftType[] = [
     avatar: "/images/avatar/25.jpg",
   },
   {
+    id: 2,
     title: "Dolly #1546",
     description: "Makak Our Equilibrium collection promotes balance and calm.",
     creator: "John doe",
@@ -21,6 +23,7 @@ const nftsList: nftType[] = [
     avatar: "/images/avatar/18.jpg",
   },
   {
+    id: 3,
     title: "Makak #2643",
     description: "'Fever Dream' by tiffatronn",
     creator: "Dam Abramov",
@@ -30,6 +33,7 @@ const nftsList: nftType[] = [
     avatar: "/images/avatar/50.jpg",
   },
   {
+    id: 4,
     title: "Ouran #3434",
     description: "The Hollows are at your service.",
     creator: "Mark Z",
@@ -39,6 +43,7 @@ const nftsList: nftType[] = [
     avatar: "/images/avatar/85.jpg",
   },
   {
+    id: 5,
     title: "Outan #9876",
     description:
       "MadSkullz #5390 is one of the 6666 NFTs from MadSkullz Collection that are joining SkullzCity to fight for Freedomz.",
@@ -49,6 +54,7 @@ const nftsList: nftType[] = [
     avatar: "/images/avatar/90.jpg",
   },
   {
+    id: 6,
     title: "Dizzi #3856",
     description:
       "Please be aware that there are characters that look identical or very similar to English letters",

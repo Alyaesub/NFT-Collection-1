@@ -10,7 +10,19 @@
   </head>
   <body>
     <main class="container">
-      <h1>NFT collection #1</h1>
+      <header class="header">
+      <a href="https://opensea.io/" class="btn">Voir sur OpenSea</a>
+      <button id="connect-wallet" class="btn btn-outline">Connecter votre wallet</button>
+    </header>
+      <div class="titlebar">
+  <div class="titlebar__left">
+    <img src="/images/icon-ethereum.svg" alt="" class="logo" />
+    <h1>NFT collection #1</h1>
+  </div>
+  <div class="titlebar__right">
+    <span class="count"><strong id="nft-count">0</strong> NFT(s)</span>
+  </div>
+</div>
       <input id="search-nft" type="text" class="input-search" placeholder="Recherche ton NFT"/>
       <div class="card-container"  ></div>
       <div style="display: none">
@@ -21,8 +33,7 @@
               alt="nft"
               class="main-image"
             />
-            <a class="overlay" href="https://www.google.com/"></a>
-            <img src="/images/icon-view.svg" alt="view icon" class="view" />
+              <img class="overlay" src="/images/icon-view.svg" alt="view icon" class="view" />
           </div>
           <div class="text-container">
             <h1 class="title">Equilibrium #3429</h1>
@@ -59,7 +70,9 @@
         </section>
       </div>
       <footer class="footer">
-      NFT collection#1
+        <img src="/images/icon-ethereum.svg" alt="" aria-hidden="true" /> 
+      <p>© <span id="year"></span> NFT Collection #1 — par Pascal</p>
+      <img src="/images/icon-ethereum.svg" alt="" aria-hidden="true" />
     </footer>
     </main>
   </body>
