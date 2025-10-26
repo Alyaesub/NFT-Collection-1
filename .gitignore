@@ -1,7 +1,20 @@
+#Perso
 .vscode
-.env
-.DS_Store
+
+# Dépendances
 node_modules/
+
+
+# Build
 dist/
-.vite/
-built/
+
+# Logs et caches
+*.log
+.vite
+.cache
+.DS_Store
+
+# Environnements
+.env
+.env.local
+.env.production

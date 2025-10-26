@@ -1,0 +1,30 @@
+# 🔹 Toujours rediriger vers index.html (SPA routing)
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.html [QSA,L]
+
+# 🔹 Compression (gzip ou brotli selon navigateur)
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css application/javascript application/json
+</IfModule>
+
+<IfModule mod_brotli.c>
+  AddOutputFilterByType BROTLI_COMPRESS text/html text/plain text/xml text/css application/javascript application/json
+</IfModule>
+
+# 🔹 Cache navigateur (1 an pour assets, 1h pour JSON)
+<FilesMatch "\.(js|css|png|jpg|jpeg|gif|svg|webp|ico)$">
+  Header set Cache-Control "max-age=31536000, public, immutable"
+</FilesMatch>
+
+<FilesMatch "\.json$">
+  Header set Cache-Control "max-age=3600, public"
+</FilesMatch>
+
+# 🔹 Sécurité de base
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "no-referrer-when-downgrade"
+</IfModule>
