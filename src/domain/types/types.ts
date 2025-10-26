@@ -1,4 +1,5 @@
 type nftType = {
+  id: number;
   title: string;
   description: string;
   creator: string;
@@ -6,5 +7,7 @@ type nftType = {
   price: string;
   expire: string;
   avatar: string;
+  contract?: string;
+  tokenId?: string;
 };
 export type { nftType };
