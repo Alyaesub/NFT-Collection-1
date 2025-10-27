@@ -8,13 +8,14 @@
     // See also https://aka.ms/tsconfig/module
     "module": "es2020",
     "target": "es2020",
-    "types": [],
     // For nodejs:
     "lib": [
       "ES2020",
       "DOM"
     ],
-    // "types": ["node"],
+    "types": [
+      "node"
+    ],
     // and npm install -D @types/node
     // Other Outputs
     "sourceMap": true,
