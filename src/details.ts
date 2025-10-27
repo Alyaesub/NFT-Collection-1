@@ -1,58 +1,96 @@
 import type { nftType } from "./domain/types/types";
 import { nftsList } from "./data/nft";
-import { setYear } from "./app";
+
 
 function getIdFromQuery(): number | null {
-  const p = new URLSearchParams(window.location.search);
-  const idStr = p.get("id");
+  const params = new URLSearchParams(window.location.search);
+  const idStr = params.get("id");
+
   if (!idStr) return null;
-  const n = Number(idStr);
-  return Number.isFinite(n) ? n : null;
+
+  const id = Number(idStr);
+  return Number.isFinite(id) ? id : null;
 }
 
-function render(nft: nftType) {
-  const media = document.querySelector(".detail-container .media") as HTMLElement | null;
-  const info = document.querySelector(".detail-container .info") as HTMLElement | null;
-  if (!media || !info) return;
 
-//injection des donné dans le html
-  (document.getElementById("nft-img") as HTMLImageElement).src = nft.img;
-  document.getElementById("nft-title")!.textContent = nft.title;
-  document.getElementById("nft-description")!.textContent = nft.description;
-  document.getElementById("nft-creator")!.textContent = nft.creator;
-  document.getElementById("nft-price")!.textContent = nft.price;
-  document.getElementById("nft-expire")!.textContent = nft.expire;
-  document.getElementById("nft-id")!.textContent = String(nft.id);
+function render(nft: nftType): void {
+  const img = document.getElementById("nft-img") as HTMLImageElement;
+  if (img) {
+    img.src = nft.img;
+    img.alt = nft.title;
+  }
+
+  const title = document.getElementById("nft-title");
+  if (title) title.textContent = nft.title;
+
+  const description = document.getElementById("nft-description");
+  if (description) description.textContent = nft.description;
+
+  const creator = document.getElementById("nft-creator");
+  if (creator) creator.textContent = nft.creator;
+
+  const price = document.getElementById("nft-price");
+  if (price) price.textContent = nft.price;
+
+  const expire = document.getElementById("nft-expire");
+  if (expire) expire.textContent = nft.expire;
+
+  const id = document.getElementById("nft-id");
+  if (id) id.textContent = String(nft.id);
 }
 
-function notFound() {
-  const container = document.querySelector(".detail-container") as HTMLElement | null;
+
+function notFound(): void {
+  const container = document.querySelector(
+    ".detail-container"
+  ) as HTMLElement | null;
   if (!container) return;
-  // On vide le contenu précédent de manière safe
+
   container.replaceChildren();
-  // Création du bloc "empty"
+
   const empty = document.createElement("div");
   empty.className = "empty";
+
   const p = document.createElement("p");
   p.textContent = "❌ NFT introuvable.";
+
   const link = document.createElement("a");
   link.className = "btn";
   link.href = "/";
   link.textContent = "Retour à la collection";
-  // On assemble les éléments
+
   empty.append(p, link);
   container.append(empty);
 }
 
 
-function initDetails() {
+function setYear(): void {
+  const el = document.getElementById("year");
+  if (el) {
+    el.textContent = String(new Date().getFullYear());
+  }
+}
+
+
+function initDetails(): void {
   const id = getIdFromQuery();
-  if (!id) return notFound();
-  const nft = nftsList.find(n => n.id === id);
-  if (!nft) return notFound();
+
+  if (!id) {
+    return notFound();
+  }
+
+  const nft = nftsList.find((n) => n.id === id);
+
+  if (!nft) {
+    return notFound();
+  }
+
   render(nft);
 }
-initDetails();
 
-//imort de setyear de app.ts
-setYear()
+
+initDetails();
+setYear();
+
+
+export { getIdFromQuery, render, notFound, setYear };
